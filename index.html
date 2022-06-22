@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Our superheroes</title>
+    <link href="https://fonts.googleapis.com/css?family=Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+    </header>
+
+    <section>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var header = document.querySelector('header');
+        var section = document.querySelector('section')
+
+
+        async function list() {
+            const { data: res } = await axios.get('data/list.json')
+            // console.log(res);
+            let head = res.squadName
+            let member = res.members
+            let str2 = ''
+
+            str = `<p>${head}<p>`
+            header.innerHTML = str
+
+            member.forEach(el => {
+                const { name, secretIdentity, age } = el
+
+                let power = el.powers
+
+                let powerList = ''
+                power.forEach(el => {
+                    powerList += `<li>${el}</li>`
+
+
+                })
+
+
+                str2 += ` <div class="card">
+                            <div class="name">${name}</div>
+                            <div class="secret">
+                                secret id : ${secretIdentity}
+                            </div>
+                            <div class="age">
+                                age : ${age}
+                            </div>
+                            <div class="superpower">
+                                superpower
+                                <ul>
+                                  ${powerList}
+                                </ul>
+                            </div>
+                        </div>
+                        `
+            });
+            section.innerHTML = str2;
+        }
+        list()
+
+
+    </script>
+</body>
+
+</html>
